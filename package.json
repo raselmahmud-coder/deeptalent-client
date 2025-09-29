@@ -41,14 +41,11 @@
   "author": "DeepTalent Team",
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
-  "dependencies": {
+  "devDependencies": {
     "@livekit/components-core": "^0.12.9",
     "@livekit/components-react": "^2.9.14",
     "@livekit/components-styles": "^1.1.6",
     "@livekit/protocol": "^1.42.0",
-    "livekit-client": "^2.15.7"
-  },
-  "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
@@ -57,6 +54,7 @@
     "@types/react": "^19.1.14",
     "@types/react-dom": "^19.1.9",
     "autoprefixer": "^10.4.21",
+    "livekit-client": "^2.15.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "rollup": "^4.52.3",
@@ -64,11 +62,5 @@
     "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^5.9.2"
-  },
-  "bundledDependencies": [
-    "livekit-client",
-    "@livekit/components-react",
-    "@livekit/components-styles",
-    "@livekit/protocol"
-  ]
+  }
 }

@@ -60,3 +60,7 @@ export function useParticipants() {
 
   return participants;
 }
+export function useLocalParticipant(): TalentParticipant | undefined {
+  // useParticipant without ID returns local participant
+  return useParticipant();
+}

@@ -1,7 +1,12 @@
 import * as livekit_client from 'livekit-client';
 import { RemoteParticipant, LocalParticipant, Track } from 'livekit-client';
+export { ConnectionState, LocalParticipant, Participant, Track } from 'livekit-client';
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import React from 'react';
+import * as React from 'react';
+import React__default from 'react';
+import { ToggleSource } from '@livekit/components-core';
+export { TrackReferenceOrPlaceholder } from '@livekit/components-core';
+export { useParticipantAttributes, useRoomContext, useTrackTranscription, useTracks, useVoiceAssistant } from '@livekit/components-react';
 
 interface TalentSessionConfig {
     apiUrl?: string;
@@ -71,6 +76,33 @@ interface TrackReference {
     publication?: any;
 }
 declare function createTrackReference(participant: RemoteParticipant | LocalParticipant, source: Track.Source, trackType: 'audio' | 'video'): TrackReference;
+interface TranscriptionSegment {
+    id: string;
+    text: string;
+    startTime: number;
+    endTime: number;
+    final: boolean;
+    language?: string;
+    participant?: TalentParticipant;
+}
+interface LocalAudioTrack extends TalentTrack {
+    setMuted(muted: boolean): void;
+    setVolume(volume: number): void;
+}
+interface LocalVideoTrack extends TalentTrack {
+    setMuted(muted: boolean): void;
+    setQuality(quality: string): void;
+}
+interface RoomConfiguration {
+    name?: string;
+    emptyTimeout?: number;
+    maxParticipants?: number;
+    metadata?: string;
+}
+interface RoomAgentDispatch {
+    agentName: string;
+    metadata?: string;
+}
 
 declare class TalentEventEmitter {
     private listeners;
@@ -123,7 +155,7 @@ declare class DeepTalent {
 }
 
 interface SessionProviderProps {
-    children: React.ReactNode;
+    children: React__default.ReactNode;
     session: TalentSession;
 }
 declare function SessionProvider({ children, session }: SessionProviderProps): react_jsx_runtime.JSX.Element;
@@ -131,7 +163,7 @@ declare function SessionProvider({ children, session }: SessionProviderProps): r
 interface VideoStreamProps {
     participantId?: string;
     className?: string;
-    style?: React.CSSProperties;
+    style?: React__default.CSSProperties;
 }
 declare function VideoStream({ participantId, className, style }: VideoStreamProps): react_jsx_runtime.JSX.Element;
 
@@ -139,9 +171,49 @@ interface AudioVisualizerProps {
     participantId?: string;
     barCount?: number;
     className?: string;
-    style?: React.CSSProperties;
+    style?: React__default.CSSProperties;
 }
 declare function AudioVisualizer({ participantId, barCount, className, style }: AudioVisualizerProps): react_jsx_runtime.JSX.Element | null;
+
+interface ChatMessageProps {
+    message: {
+        id: string;
+        message: string;
+        from?: {
+            id: string;
+            name?: string;
+            isLocal: boolean;
+        };
+        timestamp: number;
+    };
+    className?: string;
+}
+declare function ChatMessage$1({ message, className }: ChatMessageProps): react_jsx_runtime.JSX.Element;
+
+interface TrackToggleProps {
+    source: ToggleSource;
+    showIcon?: boolean;
+    className?: string;
+    onClick?: (evt: React__default.MouseEvent<HTMLButtonElement>) => void;
+}
+declare function TrackToggle({ source, showIcon, className, onClick }: TrackToggleProps): react_jsx_runtime.JSX.Element;
+
+interface TalentRoomProps {
+    session: TalentSession;
+    serverUrl: string;
+    token: string;
+    connectOptions?: any;
+    children: React__default.ReactNode;
+}
+declare function TalentRoom({ session, serverUrl, token, connectOptions, children }: TalentRoomProps): react_jsx_runtime.JSX.Element;
+
+declare function RoomAudioRenderer(): react_jsx_runtime.JSX.Element;
+
+interface StartAudioProps {
+    label?: string;
+    className?: string;
+}
+declare function StartAudio({ label, className }: StartAudioProps): react_jsx_runtime.JSX.Element;
 
 declare function useSession(): {
     session: TalentSession | null;
@@ -156,8 +228,41 @@ declare function useSession(): {
 };
 
 declare function useParticipant(participantId?: string): TalentParticipant | undefined;
+declare function useLocalParticipant(): TalentParticipant | undefined;
 
-declare function useTracks(): TalentTrack[];
+declare function useConnectionState(): TalentConnectionState;
 
-export { AudioVisualizer, DeepTalent, SessionProvider, TalentConnectionState, TalentSession, VideoStream, createTrackReference, useParticipant, useSession, useTracks };
-export type { TalentConnectionOptions, TalentParticipant, TalentSessionConfig, TalentSessionEvents, TalentTrack, TrackReference };
+declare function useDataChannel(): {
+    sendMessage: (data: string | Uint8Array) => Promise<void>;
+};
+
+interface RoomInfo {
+    name?: string;
+    metadata?: string;
+}
+declare function useRoomInfo(): RoomInfo;
+
+interface ChatMessage {
+    id: string;
+    message: string;
+    from?: TalentParticipant;
+    timestamp: number;
+}
+declare function useChat(): {
+    messages: ChatMessage[];
+    send: (message: string) => Promise<void>;
+};
+
+interface MediaDeviceInfo {
+    deviceId: string;
+    label: string;
+    kind: MediaDeviceKind;
+}
+declare function useMediaDeviceSelect(kind: MediaDeviceKind): {
+    devices: MediaDeviceInfo[];
+    activeDeviceId: string;
+    setActiveDeviceId: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export { AudioVisualizer, ChatMessage$1 as ChatMessage, DeepTalent, RoomAudioRenderer, SessionProvider, StartAudio, TalentConnectionState, TalentRoom, TalentSession, TrackToggle, VideoStream, createTrackReference, useChat, useConnectionState, useDataChannel, useLocalParticipant, useMediaDeviceSelect, useParticipant, useRoomInfo, useSession };
+export type { LocalAudioTrack, LocalVideoTrack, RoomAgentDispatch, RoomConfiguration, TalentConnectionOptions, TalentParticipant, TalentSessionConfig, TalentSessionEvents, TalentTrack, TrackReference, TranscriptionSegment };

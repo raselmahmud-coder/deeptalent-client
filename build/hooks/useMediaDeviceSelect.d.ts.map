@@ -1,0 +1,1 @@
+{"version":3,"file":"useMediaDeviceSelect.d.ts","sourceRoot":"","sources":["../../src/hooks/useMediaDeviceSelect.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,eAAe;IAC9B,QAAQ,EAAE,MAAM,CAAC;IACjB,KAAK,EAAE,MAAM,CAAC;IACd,IAAI,EAAE,eAAe,CAAC;CACvB;AAED,wBAAgB,oBAAoB,CAAC,IAAI,EAAE,eAAe;;;;EA0BzD"}

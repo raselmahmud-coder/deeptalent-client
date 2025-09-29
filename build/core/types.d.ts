@@ -72,4 +72,31 @@ export interface TrackReference {
     publication?: any;
 }
 export declare function createTrackReference(participant: RemoteParticipant | LocalParticipant, source: Track.Source, trackType: 'audio' | 'video'): TrackReference;
+export interface TranscriptionSegment {
+    id: string;
+    text: string;
+    startTime: number;
+    endTime: number;
+    final: boolean;
+    language?: string;
+    participant?: TalentParticipant;
+}
+export interface LocalAudioTrack extends TalentTrack {
+    setMuted(muted: boolean): void;
+    setVolume(volume: number): void;
+}
+export interface LocalVideoTrack extends TalentTrack {
+    setMuted(muted: boolean): void;
+    setQuality(quality: string): void;
+}
+export interface RoomConfiguration {
+    name?: string;
+    emptyTimeout?: number;
+    maxParticipants?: number;
+    metadata?: string;
+}
+export interface RoomAgentDispatch {
+    agentName: string;
+    metadata?: string;
+}
 //# sourceMappingURL=types.d.ts.map

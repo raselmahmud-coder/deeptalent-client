@@ -1,0 +1,1 @@
+{"version":3,"file":"useChat.d.ts","sourceRoot":"","sources":["../../src/hooks/useChat.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,iBAAiB,EAAE,MAAM,eAAe,CAAC;AAElD,MAAM,WAAW,WAAW;IAC1B,EAAE,EAAE,MAAM,CAAC;IACX,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,CAAC,EAAE,iBAAiB,CAAC;IACzB,SAAS,EAAE,MAAM,CAAC;CACnB;AAED,wBAAgB,OAAO;;oBAuBoB,MAAM;EAMhD"}

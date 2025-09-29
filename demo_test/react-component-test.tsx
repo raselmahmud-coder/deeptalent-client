@@ -1,75 +1,110 @@
-// demo_test/react-components-test.tsx
+// demo_test/react-integration-test.tsx
 import React from 'react';
 import { 
-  TalentSession, 
-  SessionProvider, 
-  VideoStream, 
+  TalentSession,
+  SessionProvider,
+  VideoStream,
   AudioVisualizer,
+  ChatMessage,
+  TrackToggle,
+  TalentRoom,
+  RoomAudioRenderer,
+  StartAudio,
   useSession,
   useParticipant,
-  useTracks
+  useLocalParticipant,
+  useTracks,
+  useConnectionState,
+  useDataChannel,
+  useRoomInfo,
+  useChat,
+  useMediaDeviceSelect,
+  Track
 } from '../build/index.esm.js';
 
-console.log('🧪 DeepTalent React Components Test');
-console.log('===================================');
+console.log('🧪 React Integration Test');
+console.log('=========================');
 
-// Create a test session
-const testSession = new TalentSession();
-
-// Test Component
+// Test Component using all hooks
 function TestComponent() {
   const { session, connectionState, isConnected } = useSession();
   const participant = useParticipant();
+  const localParticipant = useLocalParticipant();
   const tracks = useTracks();
+  const connectionState2 = useConnectionState();
+  const { sendMessage } = useDataChannel();
+  const roomInfo = useRoomInfo();
+  const { messages, send } = useChat();
+  const { devices } = useMediaDeviceSelect('audioinput');
   
   return (
     <div className="deeptalent-session">
-      <h2>DeepTalent Test Component</h2>
-      <div>
-        <p><strong>Connection State:</strong> {connectionState}</p>
-        <p><strong>Is Connected:</strong> {isConnected ? 'Yes' : 'No'}</p>
-        <p><strong>Participant:</strong> {participant ? 'Connected' : 'None'}</p>
-        <p><strong>Tracks:</strong> {tracks.length}</p>
+      <h2>DeepTalent Integration Test</h2>
+      
+      <div className="test-section">
+        <h3>Session Info</h3>
+        <p>Connection State: {connectionState}</p>
+        <p>Is Connected: {isConnected ? 'Yes' : 'No'}</p>
+        <p>Room Name: {roomInfo.name || 'N/A'}</p>
       </div>
       
-      <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
-        <div>
-          <h3>Video Stream</h3>
-          <VideoStream 
-            participantId="test-participant"
-            className="deeptalent-video-stream" 
-            style={{ width: 300, height: 200 }}
-          />
+      <div className="test-section">
+        <h3>Participants</h3>
+        <p>Local Participant: {localParticipant?.name || 'None'}</p>
+        <p>Current Participant: {participant?.name || 'None'}</p>
+        <p>Tracks Count: {tracks.length}</p>
+      </div>
+      
+      <div className="test-section">
+        <h3>Media Controls</h3>
+        <TrackToggle source={Track.Source.Camera} />
+        <TrackToggle source={Track.Source.Microphone} />
+        <TrackToggle source={Track.Source.ScreenShare} />
+      </div>
+      
+      <div className="test-section">
+        <h3>Video & Audio</h3>
+        <VideoStream className="test-video" />
+        <AudioVisualizer className="test-audio" />
+      </div>
+      
+      <div className="test-section">
+        <h3>Chat</h3>
+        <div className="chat-messages">
+          {messages.map(msg => (
+            <ChatMessage key={msg.id} message={msg} />
+          ))}
         </div>
-        
-        <div>
-          <h3>Audio Visualizer</h3>
-          <AudioVisualizer 
-            participantId="test-participant"
-            className="deeptalent-audio-visualizer" 
-            style={{ width: 300, height: 100 }}
-          />
-        </div>
+      </div>
+      
+      <div className="test-section">
+        <h3>Audio Devices</h3>
+        <p>Available Audio Devices: {devices.length}</p>
       </div>
     </div>
   );
 }
 
-// Test App
+// Test App with all components
 function TestApp() {
+  const session = new TalentSession();
+  
   return (
-    <SessionProvider session={testSession}>
-      <TestComponent />
+    <SessionProvider session={session}>
+      <TalentRoom 
+        session={session}
+        serverUrl="wss://your-livekit-server.com"
+        token="your-token"
+      >
+        <TestComponent />
+        <RoomAudioRenderer />
+        <StartAudio label="Start Audio" />
+      </TalentRoom>
     </SessionProvider>
   );
 }
 
-console.log('✅ React components test setup complete');
-console.log('✅ SessionProvider context created');
-console.log('✅ VideoStream component available');
-console.log('✅ AudioVisualizer component available');
-console.log('✅ useSession hook available');
-console.log('✅ useParticipants hook available');
-console.log('✅ useTracks hook available');
+console.log('✅ React integration test setup complete');
+console.log('✅ All components and hooks available');
 
 export { TestApp };

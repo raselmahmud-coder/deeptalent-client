@@ -5,6 +5,7 @@ import terser from '@rollup/plugin-terser';
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
+import copy from 'rollup-plugin-copy';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -16,12 +17,12 @@ export default [
       {
         file: 'build/index.js',
         format: 'cjs',
-        sourcemap: false
+        sourcemap: true
       },
       {
         file: 'build/index.esm.js',
-        format: 'esm',
-        sourcemap: false
+        format: 'es',
+        sourcemap: true
       }
     ],
     external: ['react', 'react-dom'],
@@ -32,8 +33,13 @@ export default [
       }),
       commonjs(),
       typescript({
-        tsconfig: './tsconfig.json',
-        sourceMap: false
+        tsconfig: './tsconfig.json'
+      }),
+      copy({
+        targets: [
+          { src: 'src/styles/components.css', dest: 'build', rename: 'styles.css' },
+          { src: 'src/index.esm.d.ts', dest: 'build' }
+        ],
       }),
       postcss({
         extract: 'build/styles.css',
@@ -54,9 +60,9 @@ export default [
     input: 'build/index.d.ts',
     output: {
       file: 'build/index.d.ts',
-      format: 'esm'
+      format: 'es'
     },
     plugins: [dts()],
-    external: ['react', 'react-dom']
+    external: [/\.css$/, '@livekit/components-styles/components/participant', 'react', 'react-dom']
   }
 ];

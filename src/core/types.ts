@@ -102,3 +102,36 @@ export function createTrackReference(
     publication
   };
 }
+
+export interface TranscriptionSegment {
+  id: string;
+  text: string;
+  startTime: number;
+  endTime: number;
+  final: boolean;
+  language?: string;
+  participant?: TalentParticipant;
+}
+
+export interface LocalAudioTrack extends TalentTrack {
+  setMuted(muted: boolean): void;
+  setVolume(volume: number): void;
+}
+
+export interface LocalVideoTrack extends TalentTrack {
+  setMuted(muted: boolean): void;
+  setQuality(quality: string): void;
+}
+
+// Protocol types
+export interface RoomConfiguration {
+  name?: string;
+  emptyTimeout?: number;
+  maxParticipants?: number;
+  metadata?: string;
+}
+
+export interface RoomAgentDispatch {
+  agentName: string;
+  metadata?: string;
+}

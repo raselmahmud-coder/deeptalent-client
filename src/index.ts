@@ -8,7 +8,12 @@ export type {
   TalentConnectionOptions,
   TalentParticipant,
   TalentTrack,
-  TalentSessionEvents
+  TalentSessionEvents,
+  TranscriptionSegment,
+  LocalAudioTrack,
+  LocalVideoTrack,
+  RoomConfiguration,
+  RoomAgentDispatch
 } from './core/types';
 
 // Export TalentConnectionState as both type and value
@@ -17,17 +22,39 @@ export { TalentConnectionState } from './core/types';
 // Track reference types
 export type { TrackReference } from './core/types';
 export { createTrackReference } from './core/types';
+export { Track, ConnectionState } from 'livekit-client';
+export type { LocalParticipant, Participant } from 'livekit-client';
 
 // React components
 export {
   SessionProvider,
   VideoStream,
-  AudioVisualizer
+  AudioVisualizer,
+  ChatMessage,
+  TrackToggle,
+  TalentRoom,
+  RoomAudioRenderer,
+  StartAudio
 } from './components';
 
 // React hooks
 export {
   useSession,
   useParticipant,
-  useTracks
+  useLocalParticipant,
+  useTracks,
+  useConnectionState,
+  useDataChannel,
+  useRoomInfo,
+  useChat,
+  useMediaDeviceSelect,
+  // These need LiveKit context, so alias them
+  useVoiceAssistant,
+  useRoomContext,
+  useParticipantAttributes,
+  useTrackTranscription
 } from './hooks';
+
+
+// Export utility for TrackReferenceOrPlaceholder
+export type { TrackReferenceOrPlaceholder } from '@livekit/components-core';

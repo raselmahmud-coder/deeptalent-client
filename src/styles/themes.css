@@ -1,0 +1,25 @@
+/* src/styles/themes.css */
+/* Light Theme (default) */
+.deeptalent-theme-light {
+    --deeptalent-background: #f8f9fa;
+    --deeptalent-surface: #ffffff;
+    --deeptalent-text: #333333;
+    --deeptalent-text-secondary: #666666;
+  }
+  
+  /* Dark Theme */
+  .deeptalent-theme-dark {
+    --deeptalent-background: #1a1a1a;
+    --deeptalent-surface: #2d2d2d;
+    --deeptalent-text: #ffffff;
+    --deeptalent-text-secondary: #cccccc;
+  }
+  
+  /* Professional Theme */
+  .deeptalent-theme-professional {
+    --deeptalent-primary: #2c3e50;
+    --deeptalent-secondary: #34495e;
+    --deeptalent-accent: #3498db;
+    --deeptalent-background: #ecf0f1;
+    --deeptalent-surface: #ffffff;
+  }

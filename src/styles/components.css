@@ -1,0 +1,58 @@
+/* src/styles/components.css */
+@import '@livekit/components-styles/components/participant';
+
+/* DeepTalent Theme Variables */
+:root {
+  --deeptalent-primary: #0066cc;
+  --deeptalent-secondary: #004499;
+  --deeptalent-accent: #00aaff;
+  --deeptalent-success: #00cc66;
+  --deeptalent-warning: #ffaa00;
+  --deeptalent-error: #cc0066;
+  --deeptalent-background: #f8f9fa;
+  --deeptalent-surface: #ffffff;
+  --deeptalent-text: #333333;
+  --deeptalent-text-secondary: #666666;
+}
+
+/* Override LiveKit styles with DeepTalent branding */
+.lk-participant-tile {
+  border-radius: 8px;
+  border: 2px solid var(--deeptalent-primary);
+}
+
+.lk-audio-visualizer {
+  --lk-accent-color: var(--deeptalent-accent);
+}
+
+.lk-button {
+  background-color: var(--deeptalent-primary);
+  border-color: var(--deeptalent-primary);
+}
+
+.lk-button:hover {
+  background-color: var(--deeptalent-secondary);
+  border-color: var(--deeptalent-secondary);
+}
+
+/* DeepTalent specific components */
+.deeptalent-session {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: var(--deeptalent-background);
+  color: var(--deeptalent-text);
+}
+
+.deeptalent-video-stream {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.deeptalent-audio-visualizer {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  height: 40px;
+  padding: 8px;
+}

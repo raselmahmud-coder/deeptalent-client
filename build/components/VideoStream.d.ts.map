@@ -1,0 +1,1 @@
+{"version":3,"file":"VideoStream.d.ts","sourceRoot":"","sources":["../../src/components/VideoStream.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAM1B,MAAM,WAAW,gBAAgB;IAC/B,aAAa,CAAC,EAAE,MAAM,CAAC;IACvB,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,KAAK,CAAC,EAAE,KAAK,CAAC,aAAa,CAAC;CAC7B;AAED,wBAAgB,WAAW,CAAC,EAAE,aAAa,EAAE,SAAS,EAAE,KAAK,EAAE,EAAE,gBAAgB,2CAmChF"}

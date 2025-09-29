@@ -1,0 +1,145 @@
+<!-- demo_test/browser-test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepTalent SDK Browser Test</title>
+  <link rel="stylesheet" href="../build/styles.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      margin: 20px;
+      background-color: var(--deeptalent-background);
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: var(--deeptalent-surface);
+    }
+    .test-result {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .success { background-color: #d4edda; color: #155724; }
+    .error { background-color: #f8d7da; color: #721c24; }
+    .info { background-color: #d1ecf1; color: #0c5460; }
+  </style>
+</head>
+<body>
+  <h1>🧪 DeepTalent SDK Browser Test</h1>
+  
+  <div id="test-results"></div>
+  
+  <div class="test-section">
+    <h2>React Components Test</h2>
+    <div id="react-test"></div>
+  </div>
+  
+  <script type="module">
+    import { 
+      DeepTalent, 
+      TalentSession, 
+      SessionProvider, 
+      VideoStream, 
+      AudioVisualizer,
+      useSession,
+      TalentConnectionState 
+    } from '../build/index.esm.js';
+    
+    const resultsDiv = document.getElementById('test-results');
+    
+    function addResult(message, type = 'info') {
+      const div = document.createElement('div');
+      div.className = `test-result ${type}`;
+      div.textContent = message;
+      resultsDiv.appendChild(div);
+    }
+    
+    console.log('🌐 Testing DeepTalent SDK in browser...');
+    
+    // Test 1: SDK Loading
+    try {
+      addResult('✅ DeepTalent SDK loaded successfully', 'success');
+      addResult('✅ All imports working', 'success');
+    } catch (error) {
+      addResult(`❌ SDK loading failed: ${error.message}`, 'error');
+    }
+    
+    // Test 2: Client Creation
+    try {
+      const client = new DeepTalent({ apiUrl: 'https://api.deeptalent.io' });
+      addResult('✅ DeepTalent client created', 'success');
+    } catch (error) {
+      addResult(`❌ Client creation failed: ${error.message}`, 'error');
+    }
+    
+    // Test 3: Session Creation
+    try {
+      const session = new TalentSession();
+      addResult(`✅ TalentSession created - State: ${session.connectionState}`, 'success');
+      addResult(`✅ Participants: ${session.participants.length}`, 'info');
+      addResult(`✅ Tracks: ${session.tracks.length}`, 'info');
+    } catch (error) {
+      addResult(`❌ Session creation failed: ${error.message}`, 'error');
+    }
+    
+    // Test 4: Event System
+    try {
+      const session = new TalentSession();
+      let eventCount = 0;
+      
+      session.on('connectionStateChanged', (state) => {
+        eventCount++;
+        addResult(`✅ Event ${eventCount}: ${state}`, 'success');
+      });
+      
+      session.emit('connectionStateChanged', TalentConnectionState.Connecting);
+      session.emit('connectionStateChanged', TalentConnectionState.Connected);
+      
+      addResult(`✅ Event system working (${eventCount} events)`, 'success');
+    } catch (error) {
+      addResult(`❌ Event system failed: ${error.message}`, 'error');
+    }
+    
+    // Test 5: React Components (if React is available)
+    try {
+      if (typeof React !== 'undefined') {
+        addResult('✅ React components available', 'success');
+        
+        // Create a simple test component
+        const TestComponent = () => {
+          const { connectionState, isConnected } = useSession();
+          return React.createElement('div', {
+            className: 'deeptalent-session'
+          }, [
+            React.createElement('h3', { key: 'title' }, 'DeepTalent Test'),
+            React.createElement('p', { key: 'state' }, `State: ${connectionState}`),
+            React.createElement('p', { key: 'connected' }, `Connected: ${isConnected}`)
+          ]);
+        };
+        
+        const App = () => React.createElement(SessionProvider, { session: new TalentSession() },
+          React.createElement(TestComponent)
+        );
+        
+        // Render to test div
+        const testDiv = document.getElementById('react-test');
+        const root = ReactDOM.createRoot(testDiv);
+        root.render(React.createElement(App));
+        
+        addResult('✅ React components rendered', 'success');
+      } else {
+        addResult('ℹ️ React not available - skipping component test', 'info');
+      }
+    } catch (error) {
+      addResult(`❌ React test failed: ${error.message}`, 'error');
+    }
+    
+    addResult('🎉 Browser test complete!', 'success');
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "target": "ES2018",
+      "module": "ESNext",
+      "lib": ["ES2018", "DOM", "DOM.Iterable"],
+      "declaration": true,
+      "declarationMap": true,
+      "outDir": "build",
+      "strict": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "skipLibCheck": true,
+      "jsx": "react-jsx",
+      "resolveJsonModule": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "build"]
+  }

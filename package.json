@@ -1,0 +1,73 @@
+{
+  "name": "deeptalent-client",
+  "version": "1.0.0",
+  "description": "DeepTalent SDK for real-time communication",
+  "type": "module",
+  "main": "build/index.js",
+  "module": "build/index.esm.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/index.esm.js",
+      "require": "./build/index.js",
+      "types": "./build/index.d.ts"
+    },
+    "./styles": "./build/styles.css"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "rollup -c -w",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "test": "jest",
+    "size": "pnpm run build && bundlesize"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "keywords": [
+    "realtime",
+    "communication",
+    "voice",
+    "video",
+    "ai"
+  ],
+  "author": "DeepTalent Team",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "@livekit/components-core": "^0.12.9",
+    "@livekit/components-react": "^2.9.14",
+    "@livekit/components-styles": "^1.1.6",
+    "@livekit/protocol": "^1.42.0",
+    "livekit-client": "^2.15.7"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.14",
+    "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.21",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "rollup": "^4.52.3",
+    "rollup-plugin-dts": "^6.2.3",
+    "rollup-plugin-postcss": "^4.0.2",
+    "typescript": "^5.9.2"
+  },
+  "bundledDependencies": [
+    "livekit-client",
+    "@livekit/components-react",
+    "@livekit/components-styles",
+    "@livekit/protocol"
+  ]
+}
